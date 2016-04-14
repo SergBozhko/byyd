@@ -56,4 +56,32 @@ $(function() {
     ga('require', 'displayfeatures');
     ga('send', 'pageview');
 
+
+
+  /*  Submit form functions*/
+    var form = $('#contacts-form');
+    form.submit(function(e) {
+    e.preventDefault();
+    var formItems = $(this).serialize();
+      $.ajax({
+        type: "POST",
+        url: "http://mailhandler.lynx.pro/api/handler/Mail",
+        data: formItems,
+        success: function(data) {
+          successFormMessage();
+        },
+        error: function() {
+          errorFormMessage();
+        }
+      });
+    });
+
+  function successFormMessage () {
+     console.log("Форма успешна отправленна");
+  };
+
+  function errorFormMessage () {
+    console.log("Ошибка отправки")
+  };
+
 });
